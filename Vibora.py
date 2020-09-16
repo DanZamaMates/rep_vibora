@@ -56,7 +56,15 @@ def move():
         food.x += randrange(-1, 2) * 10
         food.y += randrange(-1, 2) * 10
 
-    
+    if food.x <= -200:
+        food.x += 10
+    if food.x >= 190:
+        food.x -= 10
+    if food.y <= -200:
+        food.y += 10
+    if food.y >= 190:
+        food.y -= 10
+
     update()
     ontimer(move, 100)
 

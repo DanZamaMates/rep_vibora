@@ -51,6 +51,12 @@ def move():
         square(body.x, body.y, 9, 'black')
 
     square(food.x, food.y, 9, 'green')
+
+    if inside(food):
+        food.x += randrange(-1, 2) * 10
+        food.y += randrange(-1, 2) * 10
+
+    
     update()
     ontimer(move, 100)
 

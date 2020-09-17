@@ -1,12 +1,10 @@
-"""Snake, classic arcade game.
-
-Exercises
-
-1. How do you make the snake faster or slower?
-2. How can you make the snake go around the edges?
-3. How would you move the food?
-4. Change the snake to respond to arrow keys.
-
+"""
+Intituto Tecnologico de Estudios Superiores de Monterrey
+Equipo "Default":
+Daniel de Zamacona Madero - A01570576
+Elmer Osiel Avila Vargas - A00826359
+El programa despliega un juego de snake con variantes de colores y movimientos de la comida
+Fecha de Modificacion: 16/9/2020
 """
 
 from turtle import *
@@ -18,15 +16,29 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+
+'''
+Se cambia la direccion de la serpiente de acorde a la entrada del usuario
+Entrada: (x,y) posicion vectorial que da el usuario
+Salida: ninguna
+'''
 def change(x, y):
-    "Change snake direction."
     aim.x = x
     aim.y = y
 
+'''
+Regresa que los parametros esten dentro de los limites de la pantalla del juego
+Entrada: posicion vectorial de un elemento
+Salida: valor verdadero o falso
+'''
+
 def inside(head):
-    "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
+'''
+Se genera un valor de decision que se asigna color ya sea de la serpiente o la comida, y se asegura que no sean iguales entre ellos
+'''
 
 colores =['yellow','violet','blue','purple','orange']
 rand_colores = [random.choice(colores)]
@@ -37,7 +49,6 @@ while rand_colores_comida == rand_colores:
     rand_colores_comida = [random.choice(colores)]
 
 def move():
-    "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
 

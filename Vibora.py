@@ -1,40 +1,62 @@
-"""Snake, classic arcade game.
-
-Exercises
-
-1. How do you make the snake faster or slower?
-2. How can you make the snake go around the edges?
-3. How would you move the food?
-4. Change the snake to respond to arrow keys.
-
+"""
+Intituto Tecnologico de Estudios Superiores de Monterrey
+Equipo "Default":
+Daniel de Zamacona Madero - A01570576
+Elmer Osiel Avila Vargas - A00826359
+El programa despliega un juego de snake con variantes de colores y movimientos de la comida
+Fecha de Modificacion: 16/9/2020
 """
 
 from turtle import *
 from random import randrange
 from freegames import square, vector
+import random
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+
+'''
+Se cambia la direccion de la serpiente de acorde a la entrada del usuario
+Entrada: (x,y) posicion vectorial que da el usuario
+Salida: ninguna
+'''
 def change(x, y):
     "Change snake direction."
     aim.x = x
     aim.y = y
 
+'''
+Regresa que los parametros esten dentro de los limites de la pantalla del juego
+Entrada: posicion vectorial de un elemento
+Salida: valor verdadero o falso
+'''
+
 def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
 '''
-Da movimiento al juego, tanto a la serpiente hacia enfrente como de la comida al azar
-Entrada: Ninguna
-Salida: Ninguna, tiene un return que termina el movimiento en caso de perder el juego
+Se genera un valor de decision que se asigna color ya sea de la serpiente o la comida, y se asegura que no sean iguales entre ellos
 '''
+
+colores =['yellow','violet','blue','purple','orange']
+rand_colores = [random.choice(colores)]
+
+rand_colores_comida = [random.choice(colores)]
+
+while rand_colores_comida == rand_colores:
+    rand_colores_comida = [random.choice(colores)]
+
 def move():
+    "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
 
+   
+    
     if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
         update()
@@ -52,23 +74,9 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, rand_colores)
 
-    square(food.x, food.y, 9, 'green')
-
-    if inside(food):
-        food.x += randrange(-1, 2) * 10
-        food.y += randrange(-1, 2) * 10
-
-    if food.x <= -200:
-        food.x += 10
-    if food.x >= 190:
-        food.x -= 10
-    if food.y <= -200:
-        food.y += 10
-    if food.y >= 190:
-        food.y -= 10
-
+    square(food.x, food.y, 9, rand_colores_comida)
     update()
     ontimer(move, 100)
 

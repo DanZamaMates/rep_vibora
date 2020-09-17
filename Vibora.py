@@ -12,6 +12,7 @@ Exercises
 from turtle import *
 from random import randrange
 from freegames import square, vector
+import random
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
@@ -26,11 +27,22 @@ def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
+colores =['yellow','violet','blue','purple','orange']
+rand_colores = [random.choice(colores)]
+
+rand_colores_comida = [random.choice(colores)]
+
+while rand_colores_comida == rand_colores:
+    rand_colores_comida = [random.choice(colores)]
+
 def move():
     "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
 
+   
+    
     if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
         update()
@@ -48,9 +60,9 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, rand_colores)
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, rand_colores_comida)
     update()
     ontimer(move, 100)
 
